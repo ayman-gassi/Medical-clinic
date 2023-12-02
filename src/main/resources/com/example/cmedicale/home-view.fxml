@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cmedicale.controllers.MainController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="386.0" prefWidth="200.0" style="-fx-background-color: skyblue; -fx-spacing: 10; -fx-padding: 20;">
+         <children>
+            <ImageView fitHeight="90.0" fitWidth="90.0">
+               <image>
+                  <Image url="@img/heart-rate.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="home" minHeight="10.0" minWidth="150.0" mnemonicParsing="false" onAction="#GoToHome" style="-fx-text-fill: white; -fx-background-color: white;  ">
+               <graphic>
+                  <Label style="-fx-font-size: 16px;" text="Home" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="rv" minHeight="10.0" minWidth="150.0" mnemonicParsing="false" onAction="#GoToRv" style="-fx-text-fill: white; -fx-background-color: white;">
+               <graphic>
+                  <Label style="-fx-font-size: 16px;" text="Rendez Vous" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="client" minHeight="10.0" minWidth="150.0" mnemonicParsing="false" onAction="#GoToClient" style="-fx-text-fill: white; -fx-background-color: white;">
+               <graphic>
+                  <Label style="-fx-font-size: 16px;" text="Client" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="medecin" minHeight="10.0" minWidth="150.0" mnemonicParsing="false" onAction="#GoToMedecin" style="-fx-text-fill: white; -fx-background-color: white;">
+               <graphic>
+                  <Label style="-fx-font-size: 16px;" text="Medecin" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </VBox>
+      <VBox fx:id="Content" prefHeight="386.0" prefWidth="787.0">
+         <children>
+            <HBox fx:id="homeContent" prefHeight="386.0" prefWidth="767.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="0.0" prefWidth="366.0" style=" -fx-spacing: 10; -fx-padding: 20;">
+                     <children>
+                        <TextField layoutX="30.0" layoutY="208.0" prefHeight="29.0" prefWidth="333.0" />
+                        <TextField layoutX="30.0" layoutY="228.0" prefHeight="29.0" prefWidth="333.0" />
+                        <TextField layoutX="30.0" layoutY="168.0" prefHeight="29.0" prefWidth="333.0" />
+                        <TextField layoutX="30.0" layoutY="148.0" prefHeight="29.0" prefWidth="333.0" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="386.0" prefWidth="400.0" style=" -fx-spacing: 10; -fx-padding: 20;">
+                     <children>
+                        <TextField prefHeight="29.0" prefWidth="333.0" promptText="Nom" />
+                        <TextField prefHeight="29.0" prefWidth="333.0" promptText="Prenom" />
+                        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="360.0" style="-fx-text-fill: white; -fx-background-color: skyblue;" text="Save to DataBase">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/database.png" />
+                                 </image></ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button layoutX="30.0" layoutY="208.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="360.0" style="-fx-text-fill: white; -fx-background-color: skyblue;" text="Save to LocalFile">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/folder.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox fx:id="RvContent" prefHeight="386.0" prefWidth="767.0">
+               <children>
+                        <TableView prefHeight="386.0" prefWidth="776.0">
+                           <columns>
+                              <TableColumn prefWidth="127.19998776912689" text="ID" />
+                              <TableColumn prefWidth="127.19998776912689" text="Nom" />
+                              <TableColumn prefWidth="127.19998776912689" text="Prenom" />
+                              <TableColumn prefWidth="127.19998776912689" text="C1" />
+                              <TableColumn prefWidth="127.19998776912689" text="C1" />
+                              <TableColumn prefWidth="127.19998776912689" text="C1" />
+                           </columns>
+                        </TableView>
+               </children>
+            </HBox>
+            <HBox fx:id="ClientContent" layoutX="10.0" layoutY="203.0" prefHeight="386.0" prefWidth="767.0">
+               <children>
+                  <TableView prefHeight="386.0" prefWidth="776.0">
+                     <columns>
+                        <TableColumn prefWidth="127.19998776912689" text="ID" />
+                        <TableColumn prefWidth="127.19998776912689" text="Nom" />
+                        <TableColumn prefWidth="127.19998776912689" text="Prenom" />
+                        <TableColumn prefWidth="127.19998776912689" text="C1" />
+                        <TableColumn prefWidth="127.19998776912689" text="C1" />
+                        <TableColumn prefWidth="127.19998776912689" text="C1" />
+                     </columns>
+                  </TableView>
+               </children>
+            </HBox>
+            <HBox fx:id="MedecinContent" layoutX="10.0" layoutY="203.0" prefHeight="386.0" prefWidth="767.0">
+               <children>
+                  <TableView prefHeight="386.0" prefWidth="776.0">
+                     <columns>
+                        <TableColumn prefWidth="127.19998776912689" text="ID" />
+                        <TableColumn prefWidth="127.19998776912689" text="Nom" />
+                        <TableColumn prefWidth="127.19998776912689" text="Prenom" />
+                        <TableColumn prefWidth="127.19998776912689" text="Available" />
+                        <TableColumn prefWidth="127.19998776912689" text="C1" />
+                        <TableColumn prefWidth="127.19998776912689" text="C1" />
+                     </columns>
+                  </TableView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+   </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
+</HBox>
