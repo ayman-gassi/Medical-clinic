@@ -9,5 +9,6 @@ public interface Icreneau {
     void modifierCreneau(String Type ,creneau C);
     void supprimerCreneau(String Type ,int indice);
     creneau getCreneau(String Type ,int indice);
+    int getIdCreneauByDoc(String Type ,int id);
     List<creneau> getCreneaux(String Type);
 }

@@ -9,6 +9,9 @@ public interface Iclient {
     void ajouterClient(String Type ,client P);
     void modifierClient(String Type ,client p);
     void supprimerMedecin(String Type , int indice);
-    Personne getClient(String Type ,int indice);
+    client getClient(String Type ,int indice);
+    client getClientByName(String Type ,String nom,String prenom);
+    client getClient(String Type ,String Nom,String Prenom);
+
     List<client> getClients(String Type);
 }

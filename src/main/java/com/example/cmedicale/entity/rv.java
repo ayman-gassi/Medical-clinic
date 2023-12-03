@@ -3,7 +3,7 @@ package com.example.cmedicale.entity;
 import java.util.Date;
 
 public class rv {
-    private int id;
+    private int id = 0;
     private Date jour;
     private int id_client;
     private int id_creaneau;

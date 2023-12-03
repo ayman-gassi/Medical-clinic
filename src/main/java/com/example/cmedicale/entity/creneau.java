@@ -1,8 +1,8 @@
 package com.example.cmedicale.entity;
 
 public class creneau {
-        private int id;
-        private int version;
+        private int id = 0;
+        private int version = 0;
         private int Hdebut;
         private int Hfin;
         private int Mdebut;

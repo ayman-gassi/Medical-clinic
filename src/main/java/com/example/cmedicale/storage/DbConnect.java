@@ -30,7 +30,7 @@ public class DbConnect {
                     + "Mdebut INT,"
                     + "Mfin INT,"
                     + "id_medecin INT,"
-                    + "FOREIGN KEY (id_medecin) REFERENCES personne(id)"
+                    + "FOREIGN KEY (id_medecin) REFERENCES personne(id) ON DELETE CASCADE"
                     + ")";
             statement.executeUpdate(CreneauxQuery);
 
@@ -39,8 +39,8 @@ public class DbConnect {
                     + "jour DATE,"
                     + "id_client INT,"
                     + "id_creneau INT,"
-                    + "FOREIGN KEY (id_client) REFERENCES personne(id),"
-                    + "FOREIGN KEY (id_creneau) REFERENCES creneaux(id)"
+                    + "FOREIGN KEY (id_client) REFERENCES personne(id) ON DELETE CASCADE,"
+                    + "FOREIGN KEY (id_creneau) REFERENCES creneaux(id) ON DELETE CASCADE"
                     + ")";
             statement.executeUpdate(RvQuery);
 

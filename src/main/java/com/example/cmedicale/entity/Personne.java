@@ -1,8 +1,8 @@
 package com.example.cmedicale.entity;
 
 public class Personne {
-    private int id ;
-    private int version;
+    private int id = 0;
+    private int version = 0;
     private String titre ;
     private String nom ;
 
@@ -19,17 +19,6 @@ public class Personne {
         this.titre = titre;
         this.nom = nom;
         this.prenom = prenom;
-    }
-
-    @Override
-    public String toString() {
-        return "Personne{" +
-                "id=" + id +
-                ", version=" + version +
-                ", titre='" + titre + '\'' +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                '}';
     }
 
     public int getId() {

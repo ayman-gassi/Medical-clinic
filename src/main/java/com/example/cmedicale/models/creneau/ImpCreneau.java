@@ -105,6 +105,23 @@ public class ImpCreneau implements Icreneau{
     }
 
     @Override
+    public int getIdCreneauByDoc(String Type, int IdDoc) {
+        int ID = 0;
+        String req = "SELECT id FROM creneaux WHERE id_medecin=?";
+        try {
+            PreparedStatement ps = Dbcon.getCon().prepareStatement(req);
+            ps.setInt(1,IdDoc);
+            ResultSet res = ps.executeQuery();
+            if(res.next()){
+                ID = res.getInt("id");
+            }
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return ID;
+    }
+
+    @Override
     public List<creneau> getCreneaux(String Type) {
         List<creneau> med = new ArrayList<creneau>() ;
         String req = "SELECT * FROM creneaux";

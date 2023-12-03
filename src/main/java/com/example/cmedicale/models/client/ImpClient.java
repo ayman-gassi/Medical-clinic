@@ -1,12 +1,10 @@
 package com.example.cmedicale.models.client;
-
 import com.example.cmedicale.entity.Personne;
 import com.example.cmedicale.entity.client;
 import com.example.cmedicale.entity.medecin;
 import com.example.cmedicale.storage.Connect;
 import com.example.cmedicale.storage.DbConnect;
 import com.example.cmedicale.storage.FileConnect;
-
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,7 +40,6 @@ public class ImpClient implements Iclient{
             System.out.println("error Type");
         }
     }
-
     @Override
     public void modifierClient(String Type ,client P) {
         if (Type.equals("database")) {
@@ -59,7 +56,6 @@ public class ImpClient implements Iclient{
             }
         }
     }
-
     @Override
     public void supprimerMedecin(String Type, int indice) {
         if (Type.equals("database")) {
@@ -73,16 +69,15 @@ public class ImpClient implements Iclient{
             }
         }
     }
-
     @Override
-    public Personne getClient(String Type ,int indice) {
+    public client getClient(String Type ,int indice) {
         client p = null;
         if (Type.equals("database")) {
             String req = "SELECT * FROM personne WHERE id= ? AND titre= ?";
             try {
                 PreparedStatement ps = Dbcon.getCon().prepareStatement(req);
                 ps.setInt(1, indice);
-                ps.setString(2, "medecin");
+                ps.setString(2, "client");
                 ResultSet res = ps.executeQuery();
                 if (res.next()) {
                     p = new client(indice, res.getInt("version"), res.getString("nom"), res.getString("prenom"));
@@ -93,7 +88,46 @@ public class ImpClient implements Iclient{
         }
         return p;
     }
-
+    @Override
+    public client getClientByName(String Type, String nom, String prenom) {
+        client p = null;
+        if (Type.equals("database")) {
+            String req = "SELECT * FROM personne WHERE nom= ? AND titre= ? and prenom= ?";
+            try {
+                PreparedStatement ps = Dbcon.getCon().prepareStatement(req);
+                ps.setString(1, nom);
+                ps.setString(2, "client");
+                ps.setString(3, prenom);
+                ResultSet res = ps.executeQuery();
+                if (res.next()) {
+                    p = new client(res.getInt("id"), res.getInt("version"), res.getString("nom"), res.getString("prenom"));
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        return p;
+    }
+    @Override
+    public client getClient(String Type, String Nom, String Prenom) {
+        client p = null;
+        if (Type.equals("database")) {
+            String req = "SELECT * FROM personne WHERE nom= ? AND titre= ? AND prenom= ?";
+            try {
+                PreparedStatement ps = Dbcon.getCon().prepareStatement(req);
+                ps.setString(1, Nom);
+                ps.setString(2, "medecin");
+                ps.setString(2, Prenom);
+                ResultSet res = ps.executeQuery();
+                if (res.next()) {
+                    p = new client(res.getInt("id"), res.getInt("version"), res.getString("nom"), res.getString("prenom"));
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        return p;
+    }
     @Override
     public List<client> getClients(String Type) {
         List<client> med = new ArrayList<client>() ;

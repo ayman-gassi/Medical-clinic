@@ -1,5 +1,6 @@
 package com.example.cmedicale.models.medecin;
 
+import com.example.cmedicale.entity.client;
 import com.example.cmedicale.storage.Connect;
 import com.example.cmedicale.entity.medecin;
 import com.example.cmedicale.storage.DbConnect;
@@ -59,7 +60,7 @@ public class ImpMedecin implements Imedecin {
     @Override
     public void supprimerMedecin(String Type , int indice) {
         if (Type.equals("database")) {
-            String req = "DELETE * FROM personne WHERE id = ? ";
+            String req = "DELETE  FROM personne WHERE id = ?";
             try {
                 PreparedStatement ps = Dbcon.getCon().prepareStatement(req);
                 ps.setInt(1, indice);
@@ -81,6 +82,27 @@ public class ImpMedecin implements Imedecin {
                 ResultSet res = ps.executeQuery();
                 if (res.next()) {
                     p = new medecin(indice, res.getInt("version"), res.getString("nom"), res.getString("prenom"));
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        return p;
+    }
+
+    @Override
+    public medecin getMedecinByName(String Type, String nom, String prenom) {
+        medecin p = null;
+        if (Type.equals("database")) {
+            String req = "SELECT * FROM personne WHERE nom= ? AND titre= ? and prenom= ? LIMIT 1";
+            try {
+                PreparedStatement ps = Dbcon.getCon().prepareStatement(req);
+                ps.setString(1, nom);
+                ps.setString(2, "medecin");
+                ps.setString(3, prenom);
+                ResultSet res = ps.executeQuery();
+                if (res.next()) {
+                    p = new medecin(res.getInt("id"), res.getInt("version"), res.getString("nom"), res.getString("prenom"));
                 }
             } catch (SQLException e) {
                 System.out.println(e);
