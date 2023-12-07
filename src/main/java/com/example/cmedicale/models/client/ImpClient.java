@@ -57,9 +57,9 @@ public class ImpClient implements Iclient{
         }
     }
     @Override
-    public void supprimerMedecin(String Type, int indice) {
+    public void supprimerClient(String Type, int indice) {
         if (Type.equals("database")) {
-            String req = "DELETE * FROM personne WHERE id = ? ";
+            String req = "DELETE FROM personne WHERE id = ? ";
             try {
                 PreparedStatement ps = Dbcon.getCon().prepareStatement(req);
                 ps.setInt(1, indice);

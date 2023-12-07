@@ -8,7 +8,7 @@ import java.util.List;
 public interface Iclient {
     void ajouterClient(String Type ,client P);
     void modifierClient(String Type ,client p);
-    void supprimerMedecin(String Type , int indice);
+    void supprimerClient(String Type , int indice);
     client getClient(String Type ,int indice);
     client getClientByName(String Type ,String nom,String prenom);
     client getClient(String Type ,String Nom,String Prenom);

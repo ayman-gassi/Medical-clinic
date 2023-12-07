@@ -104,6 +104,25 @@ public class ImpRv implements Irv{
     }
 
     @Override
+    public rv getRvByClient(String Type, int indice) {
+        rv med = null ;
+        if (Type.equals("database")) {
+            String req = "SELECT * FROM rv WHERE id_client=?";
+            try {
+                PreparedStatement ps = Dbcon.getCon().prepareStatement(req);
+                ps.setInt(1, indice);
+                ResultSet res = ps.executeQuery();
+                if (res.next()) {
+                    med = new rv(indice, res.getDate("jour"), res.getInt("id_client"), res.getInt("id_creneau"));
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return med ;
+    }
+
+    @Override
     public List<rv> getRVs(String Type) {
         List<rv> med = new ArrayList<rv>() ;
         if (Type.equals("database")) {

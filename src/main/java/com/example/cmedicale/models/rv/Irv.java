@@ -6,5 +6,6 @@ public interface Irv {
     void modifierRv(String Type ,rv p);
     void supprimerRv(String Type ,int indice);
     rv getRv(String Type ,int indice);
+    rv getRvByClient(String Type ,int indice);
     List<rv> getRVs(String Type );
 }

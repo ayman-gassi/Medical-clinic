@@ -36,27 +36,13 @@ import java.util.*;
 public class MainController implements Initializable {
 
     @FXML
-    private Button home;
-    @FXML
     private HBox homeContent;
-    @FXML
-    private HBox ClientContent;
     @FXML
     private HBox RvContent;
     @FXML
     private HBox MedecinContent;
     @FXML
     private VBox Content;
-
-    @FXML
-    private Button rv;
-
-    @FXML
-    private Button client;
-
-    @FXML
-    private Button medecin;
-
     @FXML
     private TextField Prenom;
 
@@ -85,14 +71,11 @@ public class MainController implements Initializable {
     @FXML
     private Label DocAlert;
     @FXML
+    private Label CltAlert;
+    @FXML
     private ListView DocTable;
     @FXML
     private ListView ClientTable;
-    @FXML
-    private Button saveToDBButton;
-
-    @FXML
-    private Button saveToLocalButton;
     private void DocDataView(){
         DocTable.getItems().clear();
         ImpMedecin med = new ImpMedecin();
@@ -131,7 +114,7 @@ public class MainController implements Initializable {
                 timeline.setCycleCount(1);
                 timeline.play();
                 DocDataView();
-                DocComboBox();
+                DocComboBox(AvailableDoc);
             });
             Updatebutton.setOnAction(event -> {
                 System.out.println("Button Update clicked for: " + dat);
@@ -200,7 +183,7 @@ public class MainController implements Initializable {
                             timeline.setCycleCount(1);
                             timeline.play();
                             DocDataView();
-                            DocComboBox();
+                            DocComboBox(AvailableDoc);
 
                         }
                     }
@@ -211,11 +194,17 @@ public class MainController implements Initializable {
         }
     }
     private void ClientTable(){
+        ImpClient impClient = new ImpClient();
+        ImpRv impRdv = new ImpRv();
+        ImpMedecin impMdc = new ImpMedecin();
+        ImpCreneau impCrn = new ImpCreneau();
         ClientTable.getItems().clear();
-        ArrayList<client> AllClients = (ArrayList<client>) new ImpClient().getClients("database");
+        ArrayList<rv> AllRv = (ArrayList<rv>) impRdv.getRVs("database");
         ArrayList<String> Clients = new ArrayList<>();
-        for (client m : AllClients) {
-            Clients.add(m.getNom() + " " + m.getPrenom());
+        for (rv m : AllRv) {
+            client clt = impClient.getClient("database",m.getId_client());
+            medecin mdc = impMdc.getMedecin("database",impCrn.getCreneau("database",m.getId_creaneau()).getId_medecin());
+            Clients.add( clt.getNom()+ " " + clt.getPrenom() + " | " + m.getJour() +  " | Dr." + mdc.getNom() + mdc.getPrenom());
         }
         for (String dat : Clients) {
             Label label = new Label(dat);
@@ -225,20 +214,28 @@ public class MainController implements Initializable {
             DeleteIcon.setFitHeight(16);
             Button Deletebutton = new Button("Delete", DeleteIcon);
             Deletebutton.setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: white; -fx-font-weight: bold;");
-            Image Update = new Image("file:src/main/resources/com/example/cmedicale/img/refresh.png");
-            ImageView UpdateIcon = new ImageView(Update);
-            UpdateIcon.setFitWidth(16);
-            UpdateIcon.setFitHeight(16);
-            Button Updatebutton = new Button("Update", UpdateIcon);
-            Updatebutton.setStyle("-fx-background-color: #38c038; -fx-text-fill: white; -fx-font-weight: bold;");
-            HBox hbox = new HBox(label, Deletebutton, Updatebutton);
+            HBox hbox = new HBox(label, Deletebutton);
             hbox.setSpacing(10);
             ClientTable.getItems().add(hbox);
+            Deletebutton.setOnAction(event -> {
+                String[] item = dat.split(" ");
+                System.out.println("Button Detete clicked for: " + item[0]);
+                client selectedClt = impClient.getClientByName("database",item[0],item[1]);
+                impClient.supprimerClient("database",selectedClt.getId());
+                CltAlert.setVisible(true);
+                CltAlert.setText("Rendez-Vous de ;"+ selectedClt.getNom() + " " + selectedClt.getPrenom() + " a etait supprimer");
+                CltAlert.setStyle("-fx-background-color: #38c038;");
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(8), evt -> CltAlert.setVisible(false)));
+                timeline.setCycleCount(1);
+                timeline.play();
+                ClientTable();
+            });
         }
 
+
     }
-    private void DocComboBox(){
-        AvailableDoc.getItems().clear();
+    private void DocComboBox(ComboBox Available){
+        Available.getItems().clear();
         ImpMedecin med = new ImpMedecin();
         ArrayList<creneau> AllCreneaux = (ArrayList<creneau>) new ImpCreneau().getCreneaux("database");
         ArrayList<String> data = new ArrayList<>();
@@ -246,11 +243,11 @@ public class MainController implements Initializable {
             medecin currectMedecin = med.getMedecin("database",m.getId_medecin());
             data.add(currectMedecin.getNom() + " " + currectMedecin.getPrenom() +" de " + m.getHdebut() + ":" + m.getMfin() + " a " + m.getHfin() + ":" + m.getMfin() );
         }
-        AvailableDoc.getItems().addAll(data);
+        Available.getItems().addAll(data);
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        DocComboBox();
+        DocComboBox(AvailableDoc);
         DocDataView();
         ClientTable();
         RvDate.setChronology(LocalDate.now().getChronology());
@@ -264,8 +261,6 @@ public class MainController implements Initializable {
                 });
         RvContent.setVisible(false);
         RvContent.setManaged(false);
-        ClientContent.setVisible(false);
-        ClientContent.setManaged(false);
         MedecinContent.setVisible(false);
         MedecinContent.setManaged(false);
     }
@@ -289,14 +284,6 @@ public class MainController implements Initializable {
         RvContent.setVisible(true);
         RvContent.setManaged(true);
         Content.getChildren().add(RvContent);
-    }
-    @FXML
-    private void GoToClient(ActionEvent event) {
-        ClientTable();
-        Content.getChildren().clear();
-        ClientContent.setVisible(true);
-        ClientContent.setManaged(true);
-        Content.getChildren().add(ClientContent);
     }
     @FXML
     private void GoToMedecin(ActionEvent event) {
@@ -362,7 +349,7 @@ public class MainController implements Initializable {
             creneau newCreneau = new creneau(0,Integer.parseInt(Hdebut.getText().trim()),Integer.parseInt(Mdebut.getText().trim()),Integer.parseInt(Hfin.getText().trim()),Integer.parseInt(Mfin.getText().trim()),recentMedecin.getId());
             ImpCreneau.ajouterCreneau("database",newCreneau);
             DocDataView();
-            DocComboBox();
+            DocComboBox(AvailableDoc);
             DocNom.setText("");
             DocPrenom.setText("");
             Hdebut.setText("");

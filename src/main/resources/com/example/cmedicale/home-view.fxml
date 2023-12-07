@@ -31,14 +31,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="client" minHeight="10.0" minWidth="150.0" mnemonicParsing="false" onAction="#GoToClient" style="-fx-text-fill: white; -fx-background-color: white;">
-               <graphic>
-                  <Label style="-fx-font-size: 16px;" text="Client" />
-               </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
+
             <Button fx:id="medecin" minHeight="10.0" minWidth="150.0" mnemonicParsing="false" onAction="#GoToMedecin" style="-fx-text-fill: white; -fx-background-color: white;">
                <graphic>
                   <Label style="-fx-font-size: 16px;" text="Medecin" />
@@ -107,22 +100,14 @@
              </HBox>
              <HBox fx:id="RvContent" prefHeight="386.0" prefWidth="767.0">
                  <children>
-                     <TableView prefHeight="386.0" prefWidth="976.0">
-                         <columns>
-                             <TableColumn prefWidth="127.19998776912689" text="ID" />
-                             <TableColumn prefWidth="127.19998776912689" text="Nom" />
-                             <TableColumn prefWidth="127.19998776912689" text="Prenom" />
-                             <TableColumn prefWidth="127.19998776912689" text="C1" />
-                             <TableColumn prefWidth="127.19998776912689" text="C1" />
-                             <TableColumn prefWidth="127.19998776912689" text="C1" />
-                         </columns>
-                     </TableView>
-                 </children>
-             </HBox>
-
-             <HBox fx:id="ClientContent" layoutX="10.0" layoutY="203.0" prefHeight="386.0" prefWidth="767.0">
-                 <children>
                      <ListView  fx:id="ClientTable" prefHeight="386.0" prefWidth="522.0" />
+                     <Label fx:id="CltAlert" alignment="CENTER" contentDisplay="CENTER" disable="true" prefHeight="35.0" prefWidth="326.0" style="" text="ff" textAlignment="CENTER" textFill="WHITE">
+                         <font>
+                             <Font name="Bell MT" size="14.0" />
+                         </font>
+                         <cursor>
+                             <Cursor fx:constant="DEFAULT" />
+                         </cursor></Label>
                  </children>
              </HBox>
              <HBox fx:id="MedecinContent" layoutX="10.0" layoutY="203.0" prefHeight="386.0" prefWidth="767.0">
